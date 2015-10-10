@@ -1188,6 +1188,16 @@ end -- END mobs:register_mob function
 mobs.spawning_mobs = {}
 
 function mobs:spawn_specific(name, nodes, neighbors, min_light, max_light, interval, chance, active_object_count, min_height, max_height)
+	
+	-- Chance override
+	local chance_override_setting = name .. "_chance"
+    local chance_override = tonumber(minetest.setting_get(chance_override_setting)) 
+	if chance_override ~= nil then
+	   chance = chance_override
+	   print ("Override " ..  chance_override_setting .. " = " .. chance)
+	end
+	-- 
+	
 	mobs.spawning_mobs[name] = true
 	minetest.register_abm({
 		nodenames = nodes,
